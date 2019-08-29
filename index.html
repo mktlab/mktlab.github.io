@@ -1,7 +1,109 @@
 <!DOCTYPE html>
 <html>
+<head>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.js' type='text/javascript'></script>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.css' rel='stylesheet' type='text/css'/>
+<link href='http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'/>
+</head>
 <body>
 <h1>Hello World</h1>
 <p>I'm hosted with GitHub Pages.</p>
+
+<div id='home_network' style='border: 1px solid; height: 350px;'></div>
+
+<script type='text/javascript'>
+//<![CDATA[
+<!--
+  var container = document.getElementById('home_network');
+  var nodes = new vis.DataSet([
+    {id: 'nexus', label: 'Google Nexus 5\nLG-D821, 2013', group: 'mobile', url:'http://kakaku.com/item/K0000594117/'},
+    {id: 'gwatch', label: 'LG G Watch\nW100, 2014', group: 'clock', url: 'http://kakaku.com/item/K0000710031/'},
+    {id: 'keian', label: 'KEIAN\nKVI-70B, 2015', group: 'tablet', url: 'http://kakaku.com/item/K0000817477/'},
+    {id: 'ipad', label: 'Apple iPad mini\nMD531J/A, 2012', group: 'tablet', url: 'http://kakaku.com/item/K0000431458/'},
+    {id: 'macbook', label: 'Apple MacBook Pro\nMF840J/A, 2015', group: 'laptop', url: 'http://kakaku.com/item/K0000752292/'},
+    {id: 'toshiba', label: 'Toshiba dynabook TX\nTX/66FPK, 2008', group: 'laptop', url: 'http://kakaku.com/item/00200716673/'},
+    {id: 'macmini', label: 'Apple Mac mini\nMB464J/A, 2009', group: 'other', url: 'http://kakaku.com/item/K0000024022/'},
+    {id: 'keyboard', label: 'Apple Wireless Keyboard\nMC184J/B, 2013', group: 'keyboard', url: 'http://kakaku.com/item/K0000581091/'},
+    {id: 'mouse', label: 'Apple Magic Mouse\nMB829J/A, 2009', group: 'mouse', url: 'http://kakaku.com/item/K0000064906/'},
+    {id: 'hdd', label: 'IODATA\nHDPC-UT500W, 2012', group: 'database', url: 'http://kakaku.com/item/K0000395744/'},
+    {id: 'dvd', label: 'Apple USB SuperDrive\nMD564ZM/A, 2012', group: 'film', url: 'http://kakaku.com/item/K0000411750/'},
+    {id: 'tv', label: 'SONY BRAVIA\nKDL-32W700B, 2014', group: 'tv', url: 'http://kakaku.com/item/K0000639706/'},
+    {id: 'bd', label: 'SONY\nBDZ-T55, 2008', group: 'film', url: 'http://bbs.kakaku.com/bbs/20277010407/'},
+    {id: 'speaker', label: 'SONY\nHT-CT100, 2008', group: 'speaker', url: 'http://kakaku.com/item/20454010390/'},
+    {id: 'camera', label: 'SONY\nCMU-BR200, 2013', group: 'camera', url: 'http://kakaku.com/item/K0000498058/'},
+    {id: 'car', label: 'Pioneer Raku-Navi\nAVIC-MRZ099W, 2013', group: 'car', url: 'http://kakaku.com/item/K0000580803/'},
+    {id: 'planex', label: 'PLANEX\nMZK-MF300N2, 2011', group: 'wifi', url: 'http://kakaku.com/item/K0000233646/'},
+    {id: 'aterm', label: 'NEC Aterm\nWR8165N, 2012', group: 'wifi', url: 'http://kakaku.com/item/K0000421528/'},
+    {id: 'onu', label: 'NTT GE-PON-ONU\nType D, 2008', group: 'other', url: 'https://ja.wikipedia.org/wiki/光回線終端装置'},
+    {id: 'internet', label: 'Internet\n1969', group: 'globe', url: 'https://ja.wikipedia.org/wiki/インターネット'},
+  ]);
+  var edges = new vis.DataSet([
+    {from: 'nexus', to: 'gwatch', dashes: true, label: 'Bluetooth'},
+    {from: 'nexus', to: 'car', dashes: true, label: 'Bluetooth'},
+    {from: 'nexus', to: 'internet', dashes: true, label: 'LTE'},
+    {from: 'aterm', to: 'nexus', dashes: true, label: 'Wi-Fi'},
+    {from: 'aterm', to: 'keian', dashes: true, label: 'Wi-Fi'},
+    {from: 'aterm', to: 'ipad', dashes: true, label: 'Wi-Fi'},
+    {from: 'aterm', to: 'macbook', dashes: true, label: 'Wi-Fi'},
+    {from: 'aterm', to: 'toshiba', dashes: true, label: 'Wi-Fi'},
+    {from: 'aterm', to: 'macmini', dashes: true, label: 'Wi-Fi'},
+    {from: 'aterm', to: 'planex', dashes: true, label: 'Wi-Fi'},
+    {from: 'onu', to: 'aterm', label: 'LAN'},
+    {from: 'internet', to: 'onu', label: 'FTTH'},
+    {from: 'planex', to: 'bd', label: 'LAN'},
+    {from: 'planex', to: 'tv', label: 'LAN'},
+    {from: 'macmini', to: 'tv', label: 'HDMI'},
+    {from: 'macmini', to: 'keyboard', dashes: true, label: 'Bluetooth'},
+    {from: 'macmini', to: 'mouse', dashes: true, label: 'Bluetooth'},
+    {from: 'macmini', to: 'dvd', label: 'USB'},
+    {from: 'macmini', to: 'hdd', label: 'USB'},
+    {from: 'tv', to: 'bd', label: 'HDMI'},
+    {from: 'tv', to: 'speaker', label: 'HDMI'},
+    {from: 'tv', to: 'camera', label: 'USB'},
+  ]);
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+  var options = {
+    nodes: {
+      font: {strokeWidth: 3, strokeColor: 'white'},
+      shape: 'icon',
+      icon: {face: 'FontAwesome', color: '#303F9F'}
+    },
+    edges: {
+      font: {strokeWidth: 3, strokeColor: 'white', align: 'middle'},
+      width: 2,
+      color: '#B6B6B6'
+    },
+    groups: {
+      globe: {icon: {code: '\uf0ac'}},
+      wifi: {icon: {code: '\uf1eb'}},
+      laptop: {icon: {code: '\uf109'}},
+      tablet: {icon: {code: '\uf10a'}},
+      mobile: {icon: {code: '\uf10b'}},
+      clock: {icon: {code: '\uf017'}},
+      keyboard: {icon: {code: '\uf11c'}},
+      mouse: {icon: {code: '\uf0a6'}},
+      database: {icon: {code: '\uf1c0'}},
+      camera: {icon: {code: '\uf03d'}},
+      tv: {icon: {code: '\uf26c'}},
+      film: {icon: {code: '\uf008'}},
+      speaker: {icon: {code: '\uf028'}},
+      car: {icon: {code: '\uf1b9'}},
+      other: {icon: {code: '\uf0a0'}},
+    }
+  };
+  var network = new vis.Network(container, data, options);
+  network.on('click', function(properties) {
+    var nodeId = properties.nodes[0];
+    if (nodeId) {
+      window.open().location.href = nodes.get(nodeId).url;
+    }
+  });
+//-->
+//]]>
+</script>
+
 </body>
 </html>
